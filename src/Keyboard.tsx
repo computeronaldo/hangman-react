@@ -29,7 +29,19 @@ const KEYS = [
   "z",
 ];
 
-const Keyboard = () => {
+type Props = {
+  disabled?: boolean;
+  activeLetters: string[];
+  inactiveLetters: string[];
+  addGuessedLetter: (letter: string) => void;
+};
+
+const Keyboard = ({
+  disabled = false,
+  addGuessedLetter,
+  inactiveLetters,
+  activeLetters,
+}: Props) => {
   return (
     <div
       style={{
@@ -39,8 +51,17 @@ const Keyboard = () => {
       }}
     >
       {KEYS.map((key) => {
+        const isActive = activeLetters.includes(key);
+        const isInactive = inactiveLetters.includes(key);
         return (
-          <button className={`${styles.btn}`} key={key}>
+          <button
+            disabled={isActive || isInactive || disabled}
+            onClick={() => addGuessedLetter(key)}
+            className={`${styles.btn} ${isActive ? styles.active : ""} ${
+              isInactive ? styles.inactive : ""
+            }`}
+            key={key}
+          >
             {key}
           </button>
         );

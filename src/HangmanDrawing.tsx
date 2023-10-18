@@ -1,3 +1,7 @@
+type Props = {
+  numberOfGuesses: number;
+};
+
 const HEAD = (
   <div
     style={{
@@ -85,15 +89,13 @@ const LEFT_LEG = (
   />
 );
 
-const HangmanDrawing = () => {
+const HangmanDrawing = ({ numberOfGuesses }: Props) => {
   return (
     <div style={{ position: "relative" }}>
-      {HEAD}
-      {BODY}
-      {RIGHT_ARM}
-      {LEFT_ARM}
-      {RIGHT_LEG}
-      {LEFT_LEG}
+      {[HEAD, BODY, RIGHT_ARM, LEFT_ARM, RIGHT_LEG, LEFT_LEG].slice(
+        0,
+        numberOfGuesses
+      )}
       <div
         style={{
           position: "absolute",
